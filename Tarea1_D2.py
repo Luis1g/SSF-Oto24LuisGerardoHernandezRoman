@@ -8,7 +8,7 @@ Created on Sun Aug 18 21:49:31 2024
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Genera datos 10000 aleatorios 
+# Genera 10000 datos aleatorios 
 data = np.random.randn(10000)
 
 # Escalar los datos para que estén dentro del rango deseado 1.60 y 1.80
