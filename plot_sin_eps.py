@@ -55,9 +55,12 @@ n = 100
 graficar_funcion_seno_doble(ε, n)
 
 ###############################################################################
+
+
+
 def graficar_funcion_seno_doble(ε, n):
-    x_n = np.linspace(0, 1, n + 0)
-    x_n10 = np.linspace(0, 1, n + 10)
+    x_n = np.linspace(0, 1, n + 1)
+    x_n10 = np.linspace(0, 1, n + 11)
     
     # Calculamos f(x) = sin(1 / (x + ε)) para ambos conjuntos de nodos
     y_n = np.sin(1 / (x_n + ε))
@@ -73,41 +76,31 @@ def graficar_funcion_seno_doble(ε, n):
     plt.legend()
     plt.show()
 
-def encontrar_n(epsilon):
-    n = 10  # Iniciar con n = 1
+def encontrar_n(ε):
+    n = 1  # Iniciamos con n = 1
     diferencia_maxima = float('inf')  # Inicializamos con un valor grande
     
     while diferencia_maxima >= 0.1:
-        # Definimos los nodos para n y n + 10
+        # Definir nodos y calcular la función para n y n + 10
         x_n = np.linspace(0, 1, n + 1)
         x_n10 = np.linspace(0, 1, n + 11)
         
-        # Calculamos f(x) para ambos conjuntos de nodos
-        y_n = np.sin(1 / (x_n + epsilon))
-        y_n10 = np.sin(1 / (x_n10 + epsilon))
+        y_n = np.sin(1 / (x_n + ε))
+        y_n10 = np.sin(1 / (x_n10 + ε))
         
-        # Interpolamos los valores de y_n10 en los puntos de x_n para comparar
-        y_n10_interp = np.interp(x_n, x_n10, y_n10)
-        
-        # Calculamos la diferencia máxima entre y_n y los valores interpolados de y_n10
-        diferencia_maxima = np.max(np.abs(y_n - y_n10_interp))
-        
+        # Redimensionamos la función de n+10 a n usando slicing (solo los primeros n+1 valores)
+        diferencia_maxima = np.max(np.abs(y_n - y_n10[:n+1]))
+
         if diferencia_maxima >= 0.1:
             n += 1
 
     return n
 
 # Parámetros de entrada
-ε = 0.006
+ε = 1/20
 n = encontrar_n(ε)
 
 print(f"El valor mínimo de n para que la diferencia sea menor que 0.1 es: {n}")
 
-# Graficamos para el valor de n encontrado
+# Graficar para el valor de n encontrado
 graficar_funcion_seno_doble(ε, n)
-
-
-
-
-
-
